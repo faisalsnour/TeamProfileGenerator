@@ -150,6 +150,44 @@ async function getEngineerInfo() {
     {
         console.log(employees)
     }
+    if(engineerInfo.options === "Add intern"){
+        getInternInfo()
+    }
+}
+
+async function getInternInfo() {
+   let internInfo = inquirer.prompt([
+    {
+        name: "name",
+        type: "input",
+        message: "Enter the intern's name"
+    },
+    {
+        name: "id",
+        message: "Enter the intern's employee ID"
+    },
+    {
+        name: "email",
+        message: "enter the intern's email"
+    },
+    {
+        name:"school",
+        message: "Enter the intern's school name"
+    },
+    {
+        name: "options",
+        type: "list",
+        message: "what do you want to do next?",
+        choices: ["Add engineer","Add intern", "Finish building my team"]
+    }
+    ])
+
+    employees.push(new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school))
+
+    if(internInfo.options === "Finish building my team")
+    {
+        console.log(employees)
+    }
 }
 
 function displayManager(name,id, email, office){
