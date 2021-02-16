@@ -1,4 +1,6 @@
 var inquirer = require('inquirer')
+const fs = require('fs');
+
 
 
 class Employee {
@@ -77,6 +79,10 @@ class Intern extends Employee{
 
 var employees = []
 
+var employeesList = []
+
+var allCode = ""
+
 async function main(){
 
   const managerInfo = await inquirer.prompt([
@@ -108,11 +114,16 @@ async function main(){
     employees.push(new Manager(managerInfo.name,managerInfo.id, managerInfo.email, managerInfo.office))
 
 
-    if(managerInfo.options == "Add engineer"){
+    if(managerInfo.options === "Add engineer"){
         getEngineerInfo()
     }
-    if (managerInfo.options == "Finish building my team"){
+    if (managerInfo.options === "Finish building my team"){
         console.log(employees)
+        fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
+        err ? console.error(err) : console.log('Success!'))
+    }
+    if(managerInfo.options === "Add intern"){
+        getInternInfo()
     }
     // console.log(employees)
 }
@@ -149,14 +160,20 @@ async function getEngineerInfo() {
     if(engineerInfo.options === "Finish building my team")
     {
         console.log(employees)
+        addToList()
+        fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
+        err ? console.error(err) : console.log('Success!'))
     }
     if(engineerInfo.options === "Add intern"){
         getInternInfo()
     }
+    if(engineerInfo.options === "Add engineer"){
+        getEngineerInfo()
+    }
 }
 
 async function getInternInfo() {
-   let internInfo = inquirer.prompt([
+   let internInfo = await inquirer.prompt([
     {
         name: "name",
         type: "input",
@@ -188,6 +205,12 @@ async function getInternInfo() {
     {
         console.log(employees)
     }
+    if(internInfo.options ==="Add engineer"){
+        getEngineerInfo()
+    }
+    if(internInfo.options === "Add intern"){
+        getInternInfo()
+    }
 }
 
 function displayManager(name,id, email, office){
@@ -202,7 +225,91 @@ function displayManager(name,id, email, office){
     Manager office number: ${man.officNumber}`)
 }
 
+function generateHTML(){
+    return `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <title>Team Profile</title>
+    </head>
+    <body>
+        <header style="background-color:#3078C6;">
+            <h1 style="color: white; text-align: center; padding-top: 20px; padding-bottom: 20px;">My team</h1>
+        </header>
+        <div class="container" style="position: relative;">
+            <div class="row">
+            ${displayList()}
+              <!-- </div> -->
+            </div> <!--end of row -->
+        </div> <!--end of container-->
+    </body>
+    </html>`
+}
 
+function addManager() {
+    return`
+    <div class="card " style="width: 18rem; margin: 20px;">
+        <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
+            <h4 id="managerName">${employees[0].getName()}</h4>
+            <h4 id="managerTitle"><i class="fas fa-coffee"></i> ${employees[0].getRole()}</h4>
+        </div>
+        <div id="managerInfo" style="background-color: whitesmoke;">
+            <div style="padding: 20px;"> 
+                <p>ID: <span id="managerID">${employees[0].getId()}</span></p>
+                <p>Email: <a id="managerEmail" href="mailto:${employees[0].getEmail()}" target="_blank">${employees[0].getEmail()}</a></p>
+                <p>Office number: <span id="managerOffice">${employees[0].getOffice()}</span></p>
+            </div>
+        </div>
+    </div> <!-- end of manager card-->`
+}
+
+function addToList(){
+    for(i=0; i<employees.length; i++){
+        if(employees[i].getRole() === "Engineer"){
+            employeesList.push(`  <div class="card " style="width: 18rem; margin: 20px;">
+            <!-- <div class="card-body" style="background-color: violet;"> -->
+            <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
+                <h4 id="engineerName">${employees[i].getName()}</h4>
+                <h4 id="engineerTitle"><i class="fas fa-coffee"></i> ${employees[i].getRole()}</h4>
+            </div>
+            <div id="engineerInfo" style="background-color: whitesmoke;">
+                <div style="padding: 20px;"> 
+                    <p>ID: <span id="engineerID">${employees[i].getId()}</span></p>
+                    <p>Email: <a id="engineerEmail" href="mailto:${employees[i].getEmail()}" target="_blank">${employees[i].getEmail()}</a></p>
+                    <p>Github Account: <a id="engineerGithub" href="https://github.com/${employees[i].getGithub()}" target="_blank">${employees[i].getGithub()}</a></p>
+                </div>
+            </div>
+        </div>`)
+        }
+        if(employees[i].getRole() === "Manager"){
+            employeesList.push(`
+            <div class="card " style="width: 18rem; margin: 20px;">
+            <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
+                <h4 id="managerName">${employees[0].getName()}</h4>
+                <h4 id="managerTitle"><i class="fas fa-coffee"></i> ${employees[0].getRole()}</h4>
+            </div>
+            <div id="managerInfo" style="background-color: whitesmoke;">
+                <div style="padding: 20px;"> 
+                    <p>ID: <span id="managerID">${employees[0].getId()}</span></p>
+                    <p>Email: <a id="managerEmail" href="mailto:${employees[0].getEmail()}" target="_blank">${employees[0].getEmail()}</a></p>
+                    <p>Office number: <span id="managerOffice">${employees[0].getOffice()}</span></p>
+                </div>
+            </div>
+        </div> <!-- end of manager card-->`)
+        }
+    }
+}
+
+ 
+
+function displayList(){
+    for(j=0; j<employeesList.length; j++){
+      allCode +=  employeesList[j]
+    }
+    return allCode
+}
 
 
 main()
