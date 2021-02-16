@@ -119,6 +119,7 @@ async function main(){
     }
     if (managerInfo.options === "Finish building my team"){
         console.log(employees)
+        addToList()
         fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
         err ? console.error(err) : console.log('Success!'))
     }
@@ -204,6 +205,9 @@ async function getInternInfo() {
     if(internInfo.options === "Finish building my team")
     {
         console.log(employees)
+        addToList()
+        fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
+        err ? console.error(err) : console.log('Success!'))
     }
     if(internInfo.options ==="Add engineer"){
         getEngineerInfo()
@@ -298,6 +302,22 @@ function addToList(){
                 </div>
             </div>
         </div> <!-- end of manager card-->`)
+        }
+        if(employees[i].getRole() === "Intern"){
+            employeesList.push(`
+            <div class="card " style="width: 18rem; margin: 20px;">
+            <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
+                <h4 id="internName">${employees[i].getName()}</h4>
+                <h4 id="internTitle"><i class="fas fa-coffee"></i> ${employees[i].getRole()}</h4>
+            </div>
+            <div id="internInfo" style="background-color: whitesmoke;">
+                <div style="padding: 20px;"> 
+                    <p>ID: <span id="internID">${employees[i].getId()}</span></p>
+                    <p>Email: <a id="internEmail" href="mailto:${employees[i].getEmail()}" target="_blank">${employees[i].getEmail()}</a></p>
+                    <p>School name: <span id="internSchool">${employees[i].getSchool()}</span></a></p>
+                </div>
+            </div>
+        </div>`)
         }
     }
 }
