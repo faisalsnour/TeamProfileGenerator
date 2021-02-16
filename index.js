@@ -252,23 +252,6 @@ function generateHTML(){
     </html>`
 }
 
-function addManager() {
-    return`
-    <div class="card " style="width: 18rem; margin: 20px;">
-        <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
-            <h4 id="managerName">${employees[0].getName()}</h4>
-            <h4 id="managerTitle"><i class="fas fa-coffee"></i> ${employees[0].getRole()}</h4>
-        </div>
-        <div id="managerInfo" style="background-color: whitesmoke;">
-            <div style="padding: 20px;"> 
-                <p>ID: <span id="managerID">${employees[0].getId()}</span></p>
-                <p>Email: <a id="managerEmail" href="mailto:${employees[0].getEmail()}" target="_blank">${employees[0].getEmail()}</a></p>
-                <p>Office number: <span id="managerOffice">${employees[0].getOffice()}</span></p>
-            </div>
-        </div>
-    </div> <!-- end of manager card-->`
-}
-
 function addToList(){
     for(i=0; i<employees.length; i++){
         if(employees[i].getRole() === "Engineer"){
@@ -276,7 +259,7 @@ function addToList(){
             <!-- <div class="card-body" style="background-color: violet;"> -->
             <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
                 <h4 id="engineerName">${employees[i].getName()}</h4>
-                <h4 id="engineerTitle"><i class="fas fa-coffee"></i> ${employees[i].getRole()}</h4>
+                <h4 id="engineerTitle"><i class="fas fa-tools"></i> ${employees[i].getRole()}</h4>
             </div>
             <div id="engineerInfo" style="background-color: whitesmoke;">
                 <div style="padding: 20px;"> 
@@ -291,14 +274,14 @@ function addToList(){
             employeesList.push(`
             <div class="card " style="width: 18rem; margin: 20px;">
             <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
-                <h4 id="managerName">${employees[0].getName()}</h4>
-                <h4 id="managerTitle"><i class="fas fa-coffee"></i> ${employees[0].getRole()}</h4>
+                <h4 id="managerName">${employees[i].getName()}</h4>
+                <h4 id="managerTitle"><i class="fas fa-coffee"></i> ${employees[i].getRole()}</h4>
             </div>
             <div id="managerInfo" style="background-color: whitesmoke;">
                 <div style="padding: 20px;"> 
-                    <p>ID: <span id="managerID">${employees[0].getId()}</span></p>
-                    <p>Email: <a id="managerEmail" href="mailto:${employees[0].getEmail()}" target="_blank">${employees[0].getEmail()}</a></p>
-                    <p>Office number: <span id="managerOffice">${employees[0].getOffice()}</span></p>
+                    <p>ID: <span id="managerID">${employees[i].getId()}</span></p>
+                    <p>Email: <a id="managerEmail" href="mailto:${employees[i].getEmail()}" target="_blank">${employees[i].getEmail()}</a></p>
+                    <p>Office number: <span id="managerOffice">${employees[i].getOffice()}</span></p>
                 </div>
             </div>
         </div> <!-- end of manager card-->`)
@@ -308,7 +291,7 @@ function addToList(){
             <div class="card " style="width: 18rem; margin: 20px;">
             <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
                 <h4 id="internName">${employees[i].getName()}</h4>
-                <h4 id="internTitle"><i class="fas fa-coffee"></i> ${employees[i].getRole()}</h4>
+                <h4 id="internTitle"><i class="fas fa-user-graduate"></i> ${employees[i].getRole()}</h4>
             </div>
             <div id="internInfo" style="background-color: whitesmoke;">
                 <div style="padding: 20px;"> 
