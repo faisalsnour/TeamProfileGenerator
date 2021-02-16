@@ -1,80 +1,10 @@
+const Employee = require("./lib/Employee")
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
 var inquirer = require('inquirer')
-const fs = require('fs');
-
-
-
-class Employee {
-    constructor(name, id, email, role = "Employee" ){
-        this.name = name
-        this.id = id
-        this.email = email
-        this.role = role
-    }
-
-    getName() {
-        return this.name
-    }
-
-    getId()
-    {
-        return this.id
-    }
-
-    getEmail()
-    {
-        return this.email
-    }
-
-    getRole(){
-        return this.role
-    }
-}
-
-class Manager extends Employee{
-    constructor(name,id, email, officNumber)
-    {
-        super(name, id, email, "Manager")
-
-        this.officNumber = officNumber;
-    }
-    getRole(){
-        return this.role
-    }
-
-    getOffice(){
-        return this.officNumber
-    }
-
-}
-
-class Engineer extends Employee{
-    constructor(name, id, email, github)
-    {
-        super(name, id, email, "Engineer")
-        this.github = github
-    }
-
-    getGithub(){
-        return this.github
-    }
-
-    getRole(){
-        return this.role
-    }
-}
-
-class Intern extends Employee{
-    constructor(name, id, email, school){
-        super(name, id, email, "Intern")
-        this.school = school
-    }
-    getSchool(){
-        return this.school
-    }
-    getRole(){
-        return this.role
-    }
-}
+const fs = require('fs')
 
 
 var employees = []
@@ -118,9 +48,9 @@ async function main(){
         getEngineerInfo()
     }
     if (managerInfo.options === "Finish building my team"){
-        console.log(employees)
+        // console.log(employees)
         addToList()
-        fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
+        fs.writeFile('teamprofile.html',`${generateHTML()}`, (err) =>
         err ? console.error(err) : console.log('Success!'))
     }
     if(managerInfo.options === "Add intern"){
@@ -160,9 +90,9 @@ async function getEngineerInfo() {
 
     if(engineerInfo.options === "Finish building my team")
     {
-        console.log(employees)
+        // console.log(employees)
         addToList()
-        fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
+        fs.writeFile('teamprofile.html',`${generateHTML()}`, (err) =>
         err ? console.error(err) : console.log('Success!'))
     }
     if(engineerInfo.options === "Add intern"){
@@ -204,9 +134,9 @@ async function getInternInfo() {
 
     if(internInfo.options === "Finish building my team")
     {
-        console.log(employees)
+        // console.log(employees)
         addToList()
-        fs.writeFile('profile3.html',`${generateHTML()}`, (err) =>
+        fs.writeFile('teamprofile.html',`${generateHTML()}`, (err) =>
         err ? console.error(err) : console.log('Success!'))
     }
     if(internInfo.options ==="Add engineer"){
@@ -217,17 +147,17 @@ async function getInternInfo() {
     }
 }
 
-function displayManager(name,id, email, office){
-    let man = new Manager(name, id, email, office) 
+// function displayManager(name,id, email, office){
+//     let man = new Manager(name, id, email, office) 
 
-    console.log('Thanks for providing the information')
+//     console.log('Thanks for providing the information')
 
-    console.log(`Manager name: ${man.name} 
-    Manger id: ${man.id}
-    Manager email: ${man.email}
-    Manager role: ${man.role}
-    Manager office number: ${man.officNumber}`)
-}
+//     console.log(`Manager name: ${man.name} 
+//     Manger id: ${man.id}
+//     Manager email: ${man.email}
+//     Manager role: ${man.role}
+//     Manager office number: ${man.officNumber}`)
+// }
 
 function generateHTML(){
     return `<!DOCTYPE html>
@@ -255,7 +185,7 @@ function generateHTML(){
 function addToList(){
     for(i=0; i<employees.length; i++){
         if(employees[i].getRole() === "Engineer"){
-            employeesList.push(`  <div class="card " style="width: 18rem; margin: 20px;">
+            employeesList.push(`  <div class="card " style="width: 20rem; margin: 20px;">
             <!-- <div class="card-body" style="background-color: violet;"> -->
             <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
                 <h4 id="engineerName">${employees[i].getName()}</h4>
@@ -272,7 +202,7 @@ function addToList(){
         }
         if(employees[i].getRole() === "Manager"){
             employeesList.push(`
-            <div class="card " style="width: 18rem; margin: 20px;">
+            <div class="card " style="width: 20rem; margin: 20px;">
             <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
                 <h4 id="managerName">${employees[i].getName()}</h4>
                 <h4 id="managerTitle"><i class="fas fa-coffee"></i> ${employees[i].getRole()}</h4>
@@ -288,7 +218,7 @@ function addToList(){
         }
         if(employees[i].getRole() === "Intern"){
             employeesList.push(`
-            <div class="card " style="width: 18rem; margin: 20px;">
+            <div class="card " style="width: 20rem; margin: 20px;">
             <div id="cardTitle" style="background-color: #3078C6; color: white; margin: 0px; padding-left: 20px;">
                 <h4 id="internName">${employees[i].getName()}</h4>
                 <h4 id="internTitle"><i class="fas fa-user-graduate"></i> ${employees[i].getRole()}</h4>
@@ -304,15 +234,10 @@ function addToList(){
         }
     }
 }
-
- 
-
 function displayList(){
     for(j=0; j<employeesList.length; j++){
       allCode +=  employeesList[j]
     }
     return allCode
 }
-
-
 main()
