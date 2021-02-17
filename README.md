@@ -14,7 +14,7 @@ The command-line application does the following:
 
 ## Screenshots:
 
-The following pictures show the application's appearance and functionality;
+The following pictures show the application's appearance and functionality:
 
 ![Screen shows the data user has entered to build team profile](/Assets/ListOfInput.png)
 
@@ -24,8 +24,8 @@ The following pictures show the application's appearance and functionality;
 
 ## Link to a walkthrough video
 
-[please click here]()
+[please click here](https://www.youtube.com/watch?v=0ztDbnY4AOA&feature=youtu.be)
 
-## Link to the generated readme file:
+## Link to the generated team profile html file:
 
 [please click here](/teamprofile.html)
